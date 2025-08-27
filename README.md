@@ -12,21 +12,24 @@ This document provides an overview of the project and the key LLM concepts used 
 ### Dynamic Prompting
 **How it's used:** Prompts are built dynamically using templates defined in `config/prompts.json`. For example, the `basic_animation` template is: `"Create a Manim animation that demonstrates {concept}."`. The `ManimPrompt.create_from_description` function takes the user's input from the API and inserts it into these templates, creating a specific, dynamic prompt for each request.
 
+### System and User Prompt
+**How it's used:** The `manimgen` service utilizes both system and user prompts to guide the LLM.
+*   **System Prompt:** A system prompt is used to set the overall behavior and persona of the LLM. In `config/prompts.json`, you can see the system prompt defines the LLM's role as a "Senior Mathematical Animator" and sets several constraints for the code generation.
+*   **User Prompt:** The user prompt is the specific request from the user. In this project, the user's description of the animation is used to create the user prompt, which is then combined with the system prompt to generate the full prompt sent to the LLM.
+
 ## Key Concepts in LLMs
 
 ### Tokens and Tokenization
 **How it's used:** The service monitors LLM usage by tracking the number of tokens processed. The `TokenLogger` class is initialized in the `ManimGenerator` (`src/rendering/generator.py`). After each call to the LLM, the `log_request` method is invoked to record the number of tokens used, which is useful for monitoring costs and performance.
 
+### Temperature
+**How it's used:** The `temperature` is a user-configurable parameter that controls the creativity of the generated code. The `/api/v1/generate` endpoint in `src/api/v1/endpoints.py` accepts a `temperature` value in the request body. This value is then passed to the LLM provider in the `_generate_manim_code` function, allowing users to choose between more deterministic or more creative outputs.
 
 ### Top P
 **How it's used:** Top P, also known as nucleus sampling, is a method for controlling the randomness of the LLM's output. It works by selecting from the smallest set of tokens whose cumulative probability exceeds a certain threshold (p). This allows for more dynamic control over the number of tokens considered at each step. In the `manimgen` service, `top_p` can be configured in the `/api/v1/generate` endpoint. If not provided, a default value from `settings.py` is used.
 
 ### Top K
 **How it's used:** Top K is another method for controlling the randomness of the LLM's output. It works by restricting the model to select from a fixed number (k) of the most likely next tokens. A value of 0 for `top_k` disables this feature. In the `manimgen` service, `top_k` can be configured in the `/api/v1/generate` endpoint. If not provided, a default value from `settings.py` is used.
-
-
-### Temperature
-**How it's used:** The `temperature` is a user-configurable parameter that controls the creativity of the generated code. The `/api/v1/generate` endpoint in `src/api/v1/endpoints.py` accepts a `temperature` value in the request body. This value is then passed to the LLM provider in the `_generate_manim_code` function, allowing users to choose between more deterministic or more creative outputs..
 
 
 

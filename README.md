@@ -12,5 +12,10 @@ This document provides an overview of the project and the key LLM concepts used 
 ### Dynamic Prompting
 **How it's used:** Prompts are built dynamically using templates defined in `config/prompts.json`. For example, the `basic_animation` template is: `"Create a Manim animation that demonstrates {concept}."`. The `ManimPrompt.create_from_description` function takes the user's input from the API and inserts it into these templates, creating a specific, dynamic prompt for each request.
 
+## Key Concepts in LLMs
+
 ### Tokens and Tokenization
 **How it's used:** The service monitors LLM usage by tracking the number of tokens processed. The `TokenLogger` class is initialized in the `ManimGenerator` (`src/rendering/generator.py`). After each call to the LLM, the `log_request` method is invoked to record the number of tokens used, which is useful for monitoring costs and performance.
+
+### Top P
+**How it's used:** Top P, also known as nucleus sampling, is a method for controlling the randomness of the LLM's output. It works by selecting from the smallest set of tokens whose cumulative probability exceeds a certain threshold (p). This allows for more dynamic control over the number of tokens considered at each step. In the `manimgen` service, `top_p` can be configured in the `/api/v1/generate` endpoint. If not provided, a default value from `settings.py` is used.

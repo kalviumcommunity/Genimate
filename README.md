@@ -30,6 +30,7 @@ This document provides an overview of the project and the key LLM concepts used 
 
 ### Top K
 **How it's used:** Top K is another method for controlling the randomness of the LLM's output. It works by restricting the model to select from a fixed number (k) of the most likely next tokens. A value of 0 for `top_k` disables this feature. In the `manimgen` service, `top_k` can be configured in the `/api/v1/generate` endpoint. If not provided, a default value from `settings.py` is used.
+## Other Concepts
 
-
-
+### Structured Output
+**How it's used:** The `manimgen` service is designed to work with structured data, even though the LLM's raw output is unstructured text. After the LLM generates a response, the `CodeValidator.extract_manim_code` function in `src/rendering/generator.py` parses this response to find and extract the Python code block. The application then uses this code to build a structured JSON response (defined by the `GenerateResponse` model in `src/api/v1/endpoints.py`) that is sent back to the client.

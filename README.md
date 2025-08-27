@@ -23,4 +23,9 @@ This document provides an overview of the project and the key LLM concepts used 
 ### Top P
 **How it's used:** Top P, also known as nucleus sampling, is a method for controlling the randomness of the LLM's output. It works by selecting from the smallest set of tokens whose cumulative probability exceeds a certain threshold (p). This allows for more dynamic control over the number of tokens considered at each step. In the `manimgen` service, `top_p` can be configured in the `/api/v1/generate` endpoint. If not provided, a default value from `settings.py` is used.
 
+### Top K
+**How it's used:** Top K is another method for controlling the randomness of the LLM's output. It works by restricting the model to select from a fixed number (k) of the most likely next tokens. A value of 0 for `top_k` disables this feature. In the `manimgen` service, `top_k` can be configured in the `/api/v1/generate` endpoint. If not provided, a default value from `settings.py` is used.
+
+
+
 

@@ -26,7 +26,7 @@ This document provides an overview of the project and the key LLM concepts used 
 
 
 ### Temperature
-**How it's used:** The `temperature` is a user-configurable parameter that controls the creativity of the generated code. The `/api/v1/generate` endpoint in `src/api/v1/endpoints.py` accepts a `temperature` value in the request body. This value is then passed to the LLM provider in the `_generate_manim_code` function, allowing users to choose between more deterministic or more creative outputs.
+**How it's used:** The `temperature` is a user-configurable parameter that controls the creativity of the generated code. The `/api/v1/generate` endpoint in `src/api/v1/endpoints.py` accepts a `temperature` value in the request body. This value is then passed to the LLM provider in the `_generate_manim_code` function, allowing users to choose between more deterministic or more creative outputs..
 
 
 

@@ -1,6 +1,15 @@
 # Genimate
 
-Welcome to Genimate! This project uses Large Language Models (LLMs) to generate Manim animations from natural language descriptions. It features a web interface and a backend service (`manimgen`) that handles the animation generation.
+Welcome to Genimate, a project that bridges the gap between natural language and mathematical animations. Genimate uses the power of Large Language Models (LLMs) to generate Manim animations from simple text descriptions.
+
+The goal of this project is to make creating beautiful and informative mathematical animations accessible to everyone, regardless of their programming experience. By simply describing the concept you want to visualize, you can generate a high-quality animation without writing any code.
+
+## Project Architecture
+
+The Genimate project is composed of two main components:
+
+1.  **Web Interface (`apps/web`):** A user-friendly web application that provides an interface for users to enter their animation descriptions and view the generated videos.
+2.  **Backend Service (`services/manimgen`):** A FastAPI-based backend service that takes the user's description, uses an LLM to generate the corresponding Manim code, and then renders the code into a video file using a sandboxed Docker environment.
 
 This document provides an overview of the project and the key LLM concepts used in the `manimgen` service.
 
